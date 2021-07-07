@@ -13,12 +13,12 @@ export default function Application(props) {
 
   const [day, setDay] = useState("Monday"); 
   const [days, setDays] = useState([]);
-
+  console.log(day);
   useEffect(() => {
     axios.get('/api/days')
-      .then(response => {
-        console.log(response);
-        setDays(response.data)
+      .then(({data: newDays}) => {
+        console.log(newDays);
+        setDays(newDays)
       })  
       .catch(function (error) {
         console.log(error);
