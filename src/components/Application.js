@@ -71,10 +71,11 @@ export default function Application(props) {
   const [state, setState] = useState({
     day: "Monday",
     days: [],
-    appointments: {}
+    appointments: {},
+    interviewers: {}
   });
 
-  const dailyAppointments = getAppointmentsForDay(state, state.day, state.interviewers);
+  const dailyAppointments = getAppointmentsForDay(state, state.day);
 
   const setDay = day => setState({...state, day})
   // const setDays = days => setState(prev => ({...prev, days}));
@@ -102,6 +103,7 @@ export default function Application(props) {
         console.log(error);
     })
   }, []);
+  console.log(state.interviewers)
   
   const appointment = dailyAppointments.map(appointment => {
     return <Appointment key={appointment.id} {...appointment}/>
