@@ -26,3 +26,21 @@ export function getInterview(state, interview) {
   }
   return interviewData;
 }
+
+export function getInterviewersForDay(state, day) {
+  
+  // find obj in state.days array when name === day
+  const foundDay = state.days.find(element => element.name === day);
+
+  if(!foundDay || state.days.length === 0) {
+    return [];
+  } 
+  
+  // the variable - appointments - contains the state.appointments at the appointmentIds defined by the foundDays appointments array. 
+  const interviewer = foundDay.interviewers.map((interviewerId) => 
+    state.interviewers[interviewerId]
+  );
+  console.log(interviewer)
+  
+  return interviewer;
+}
