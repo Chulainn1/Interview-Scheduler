@@ -6,6 +6,7 @@ import DayList from "components/DayList";
 import Appointment from "components/Appointment"
 import { getAppointmentsForDay } from "helpers/selectors";
 import { getInterviewersForDay } from "helpers/selectors";
+// import { getInterview } from "helpers/selectors";
 
 const axios = require('axios');
 
@@ -24,33 +25,32 @@ export default function Application(props) {
   const dailyAppointments = getAppointmentsForDay(state, state.day);
   const dailyInterviewers = getInterviewersForDay(state, state.day);
 
+  // bookInterview will allow us to change the local state when we book an interview
+  function bookInterview(id, interview) {
+    console.log(id, interview);
+    const appointment = {
+      ...state.appointments[id],
+      interview: { ...interview }
+    };
+
+    const appointments = {
+      ...state.appointments,
+      [id]: appointment
+    };
+    
+    return axios.put(`/api/appointments/${id}`, {interview} )
+    .then(() => setState({
+      ...state,
+      appointments
+    }));
+  }
 
   const appointment = dailyAppointments.map(appointment => {
-    // const interview = getInterview(state, appointment.interview);
-    return <Appointment key={appointment.id} {...appointment} interviewers={dailyInterviewers}/>
+    return <Appointment key={appointment.id} {...appointment} interviewers={dailyInterviewers} bookInterview={bookInterview}/>
   })
 
-  // const interviewer = dailyInterviewers.map(interviewer => {
-  //   return <Appointment key={interviewer.id} {...interviewer}/>
-  // })
 
-  // const interviewers = getInterviewersForDay(state, state.day);
-  // const appointment = getAppointmentsForDay(state, state.day).map(
-  //   (appointment) => {
-  //     return (
-  //       <Appointment
-  //         key={appointment.id}
-  //         {...appointment}
-  //         // interview={getInterview(state, appointment.interview)}
-  //         interviewers={interviewers}
-  //         // bookInterview={bookInterview}
-  //         // cancelInterview={cancelInterview}
-  //       />
-  //     );
-  //   }
-  // );
 
-  
   useEffect(() => {
     const days = '/api/days'
     const appointments = '/api/appointments'
@@ -65,7 +65,6 @@ export default function Application(props) {
         console.log(error);
     })
   }, []);
-  // console.log(state.interviewers)
   
 
   return (
