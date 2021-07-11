@@ -20,6 +20,8 @@ export default function Appointment(props) {
   const SAVING = "SAVING";
   const DELETING = "DELETING";
   const EDIT = "EDIT";
+  const ERROR_SAVE = "ERROR_SAVE";
+  const ERROR_DELETE = "ERROR_DELETE";
 
   const { mode, transition, back } = useVisualMode(
     props.interview ? SHOW : EMPTY
@@ -36,7 +38,11 @@ export default function Appointment(props) {
 
     // Promise to wait for the axios put in Application.js
     Promise.resolve(props.bookInterview(props.id, interview))
-    .then(() => transition(SHOW));
+    .then(() => transition(SHOW))
+    .catch(err => {
+      transition(ERROR_SAVE, true)
+      console.log(err);
+    });
   }
 
   function deleteAppointment() {
@@ -44,9 +50,12 @@ export default function Appointment(props) {
 
     Promise.resolve(props.cancelInterview(props.id))
     .then(() => transition(EMPTY))
+    .catch(err => {
+      transition(ERROR_DELETE, true)
+      console.log(err);
+    });
   }
  
-  console.log(props.interview.interviewer)
   return (
     <article className="appointment">
       <Header time={props.time}/> 
@@ -88,6 +97,18 @@ export default function Appointment(props) {
         onSave={save}
         onCancel={() => back(EMPTY)}
       />
+      )}
+      {mode === ERROR_SAVE && (
+        <Error 
+        message="Unable to save. Please try again in a few minutes."
+        onClose={() => back()}
+        />
+      )}
+      {mode === ERROR_DELETE && (
+        <Error 
+        message="Could not cancel appointment. Please try again in a few minutes."
+        onClose={() => back()}
+        />
       )}
     </article>
   );
