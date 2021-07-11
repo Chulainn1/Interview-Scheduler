@@ -6,7 +6,7 @@ import DayList from "components/DayList";
 import Appointment from "components/Appointment"
 import { getAppointmentsForDay } from "helpers/selectors";
 import { getInterviewersForDay } from "helpers/selectors";
-// import { getInterview } from "helpers/selectors";
+import { getInterview } from "helpers/selectors";
 
 const axios = require('axios');
 
@@ -24,6 +24,7 @@ export default function Application(props) {
   
   const dailyAppointments = getAppointmentsForDay(state, state.day);
   const dailyInterviewers = getInterviewersForDay(state, state.day);
+  
 
   // bookInterview will allow us to change the local state when we book an interview
   function bookInterview(id, interview) {
@@ -45,8 +46,27 @@ export default function Application(props) {
     }));
   }
 
+  function cancelInterview(id) {
+    const appointment = {
+      ...state.appointments[id],
+      interview: null
+    };
+
+    const appointments = {
+      ...state.appointments,
+      [id]: appointment
+    };
+
+    return axios.delete(`/api/appointments/${id}`)
+    .then(() => setState({
+      ...state,
+      appointments
+    }));
+    
+  }
+
   const appointment = dailyAppointments.map(appointment => {
-    return <Appointment key={appointment.id} {...appointment} interviewers={dailyInterviewers} bookInterview={bookInterview}/>
+    return <Appointment key={appointment.id} {...appointment} interviewers={dailyInterviewers}  bookInterview={bookInterview} cancelInterview={cancelInterview}/>
   })
 
 
