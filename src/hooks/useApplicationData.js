@@ -17,7 +17,7 @@ export default function useApplicationData() {
 
   // bookInterview will allow us to change the local state when we book an interview
   function bookInterview(id, interview) {
-    console.log(id, interview);
+    
     const appointment = {
       ...state.appointments[id],
       interview: { ...interview }
@@ -28,8 +28,19 @@ export default function useApplicationData() {
       [id]: appointment
     };
     
+    function removeSpot() {
+      // console.log("days with spots available:", state.days);
+      const availableDays = [...state.days];
+      // console.log(availableDays)
+      for(const i of availableDays) {
+        console.log(i);
+      }
+    }
+    removeSpot()
+    
     return axios.put(`/api/appointments/${id}`, {interview} )
-    .then(() => setState({
+    .then(() => 
+    setState({
       ...state,
       appointments
     }));

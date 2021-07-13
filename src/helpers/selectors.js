@@ -18,12 +18,13 @@ export function getAppointmentsForDay(state, day) {
 export function getInterview(state, interview) {
   
   let interviewData = {};
-
+  // console.log("interview", interview)
   if(interview) {
     interviewData = {...interview, interviewer: state.interviewers[interview.interviewer] }
   } else {
     interviewData = null
   }
+  // console.log(interviewData)
   return interviewData;
 }
 

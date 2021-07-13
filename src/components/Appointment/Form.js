@@ -4,7 +4,7 @@ import Button from "components/Button";
 
 
 export default function Form(props) {
-  // console.log("test:", props.interviewers)
+  // console.log("test:", props.interviewer)
   const [name, setName] = useState(props.name || "");
   const [interviewer, setInterviewer] = useState(props.interviewer || null);
 
@@ -17,6 +17,7 @@ export default function Form(props) {
     props.onCancel();
   }
   const save = () => {
+    // Validate that user entered a name and interviewer before saving 
     props.onSave(name, interviewer);
     console.log(name, interviewer)
   }
@@ -37,7 +38,7 @@ export default function Form(props) {
             */
           />
         </form >
-        <InterviewerList interviewers={props.interviewers} value={interviewer} onChange={setInterviewer} />
+        <InterviewerList interviewers={props.interviewers} interviewer={interviewer} onChange={setInterviewer} />
       </section>
       <section className="appointment__card-right">
         <section className="appointment__actions">
