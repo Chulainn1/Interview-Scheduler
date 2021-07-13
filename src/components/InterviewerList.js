@@ -22,7 +22,7 @@ export default function InterviewerList(props) {
       />
     );
   })
-  console.log(interviewer)
+  // console.log(interviewer)
 
   
   
