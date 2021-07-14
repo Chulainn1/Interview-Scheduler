@@ -49,7 +49,7 @@ export default function useApplicationData() {
 
 
     // console.log(state.days[0].spots, "BEFORE")
-    
+
     /*
     Where is the value of spots? 
     console.log(state.days[0].spots, "BEFORE") // 3
@@ -66,7 +66,7 @@ export default function useApplicationData() {
 
     return axios.put(`/api/appointments/${id}`, appointment)
     .then(() => {
-      console.log("axios is working")
+      // console.log("axios is working")
       setState(
         prev => ({...prev, days, appointments})
       )
