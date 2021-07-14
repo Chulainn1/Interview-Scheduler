@@ -45,3 +45,13 @@ export function getInterviewersForDay(state, day) {
   
   return interviewer;
 }
+
+export function updateSpots(days, id, value) {
+
+  days.forEach(day => {
+    if(day.appointments.includes(id)) {
+      day.spots = parseInt(day.spots) + value;
+    }
+  })
+  return days;
+}

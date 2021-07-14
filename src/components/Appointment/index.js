@@ -27,8 +27,8 @@ export default function Appointment(props) {
     props.interview ? SHOW : EMPTY
   );
 
-  function save(name, interviewer) {
-    console.log(name, interviewer)
+  function save(name, interviewer, changeSpots) {
+    // console.log(name, interviewer)
     const interview = {
       student: name,
       interviewer
@@ -37,7 +37,7 @@ export default function Appointment(props) {
     transition(SAVING); // transition to he SAVING mode when starting the save operation
 
     // Promise to wait for the axios put in Application.js
-    Promise.resolve(props.bookInterview(props.id, interview))
+    Promise.resolve(props.bookInterview(props.id, interview, changeSpots))
     .then(() => transition(SHOW))
     .catch(err => {
       transition(ERROR_SAVE, true)
@@ -72,6 +72,7 @@ export default function Appointment(props) {
       {mode === CREATE && 
       (<Form
         interviewers={props.interviewers}
+        changeSpots={true}
         onSave={save}
         onCancel={() => back(EMPTY)}
       />
@@ -94,6 +95,7 @@ export default function Appointment(props) {
         name={props.interview.student}
         interviewer={props.interview.interviewer.id}
         interviewers={props.interviewers}
+        changeSpots={false}
         onSave={save}
         onCancel={() => back(EMPTY)}
       />
