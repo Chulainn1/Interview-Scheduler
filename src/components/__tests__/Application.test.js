@@ -17,7 +17,7 @@ import {
   getAllByTestId, 
   getByAltText,
   getByPlaceholderText, 
-  queryByText} from "@testing-library/react";
+  queryByText } from "@testing-library/react";
 /*
   We import the component that we are testing
 */
