@@ -30,7 +30,6 @@ export default function useApplicationData() {
 
   const setDay = day => setState({...state, day})
   
-  
 
   // bookInterview will allow us to change the local state when we book an interview
   function bookInterview(id, interview, changeSpots) {
@@ -47,26 +46,9 @@ export default function useApplicationData() {
 
     const days = changeSpots ? updateSpots([...state.days], id, -1) : [...state.days]; 
 
-
-    // console.log(state.days[0].spots, "BEFORE")
-
-    /*
-    Where is the value of spots? 
-    console.log(state.days[0].spots, "BEFORE") // 3
-
-    How can we calculate the number of spots? 
-      The # of spots has a relationship w/ the # of appointments that DON'T have an interview booked. 
-    console.log(state.appointments[4].interview) //{student: "Chad Takahashi", interviewer: 9}
-
-    When should we update the spots? 
-      spots are updated when an interview is booked or canceled. Update state with the new number of spots applied in the .then of the axios request of bookInterview and cancelInterview. 
-
-     The appointment id is known when an interivew is confirmed or canceled by the server. 
-    */
-
     return axios.put(`/api/appointments/${id}`, appointment)
     .then(() => {
-      // console.log("axios is working")
+  
       setState(
         prev => ({...prev, days, appointments})
       )
@@ -96,6 +78,5 @@ export default function useApplicationData() {
     
   }
   
-
   return {state, setDay, bookInterview, cancelInterview}
 }

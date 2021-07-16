@@ -19,12 +19,10 @@ import {
   getByPlaceholderText, 
   queryByText } from "@testing-library/react";
 /*
-  We import the component that we are testing
+  import the component that we are testing
 */
 import Application from "components/Application";
-/*
-  A test that renders a React Component
-*/
+
 afterEach(cleanup);
 
 it("defaults to Monday and changes the schedule when a new day is selected", async () => {
@@ -222,10 +220,6 @@ describe("Application", () => {
 
     await waitForElement(() => getByText(appointment, "Could not cancel appointment."));
     
-    // expect(getByText(appointment, "Could not cancel appointment. Please try again in a few minutes.")).toBeInTheDocument();
-
-    debug(appointment);
-
   });
 });
     

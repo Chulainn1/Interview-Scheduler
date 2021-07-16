@@ -1,4 +1,6 @@
 import React from "react";
+import useVisualMode from "hooks/useVisualMode";
+
 import "components/Appointment/styles.scss"
 
 import Header from "./Header";
@@ -8,11 +10,10 @@ import Form from "./Form";
 import Status from "./Status";
 import Confirm from "./Confirm";
 import Error from "./Error";
-import useVisualMode from "hooks/useVisualMode";
 
 
 export default function Appointment(props) {
-  // console.log(props);
+
   const EMPTY = "EMPTY";
   const SHOW = "SHOW";
   const CREATE = "CREATE";
@@ -26,17 +27,15 @@ export default function Appointment(props) {
   const { mode, transition, back } = useVisualMode(
     props.interview ? SHOW : EMPTY
   );
-
+  // A an appointment
   function save(name, interviewer, changeSpots) {
-    // console.log(name, interviewer)
     const interview = {
       student: name,
       interviewer
     };
 
-    transition(SAVING); // transition to he SAVING mode when starting the save operation
+    transition(SAVING); 
 
-    // Promise to wait for the axios put in Application.js
     Promise.resolve(props.bookInterview(props.id, interview, changeSpots))
     .then(() => transition(SHOW))
     .catch(err => {

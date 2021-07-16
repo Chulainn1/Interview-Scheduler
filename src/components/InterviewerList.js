@@ -10,7 +10,7 @@ InterviewerList.propTypes = {
 };
 
 export default function InterviewerList(props) {
-  // console.log(props)
+
   const interviewer = props.interviewers.map(interviewer => {
     return ( 
       <InterviewerListItem 
@@ -22,10 +22,7 @@ export default function InterviewerList(props) {
       />
     );
   })
-  // console.log(interviewer)
 
-  
-  
   return (
     <section className="interviewers">
       <h4 className="interviewers__header text--light">Interviewer</h4>
