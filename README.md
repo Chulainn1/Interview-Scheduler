@@ -5,7 +5,7 @@
 Created a modern client app using the `React` view library in nine days. Development focused on creating a single page application allowing users to book, edit and delete an interview on any given day of the week. Data is persisted by an API server using a `PostgreSQL` database. Performed `Jest` testing throughout the development of this project, and performed end-to-end tests with `Cypress`. 
 
 ![Navigate](https://github.com/Chulainn1/Interview-Scheduler/raw/master/docs/Scheduler1.gif)
-![Create-Edit-Delete](/docs/ScheldulerCREATE-EDIT-DELTE.gif
+![Create-Edit-Delete](/docs/ScheldulerCREATE-EDIT-DELTE.gif)
 ![Errors](https://github.com/Chulainn1/Interview-Scheduler/raw/master/docs/ScheduleERROR.gif)
 
 
